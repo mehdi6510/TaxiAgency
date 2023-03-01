@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup,Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from '@angular/router';
+import {DriverService} from "../../../services/driver/driver.service";
+
 @Component({
   selector: 'app-create-driver',
   templateUrl: './create-driver.component.html',
@@ -9,12 +11,13 @@ import {Router} from '@angular/router';
 export class CreateDriverComponent implements OnInit {
   submitted = false;
   registerForm: FormGroup;
+  error: string = '';
 
-
-  constructor( private router: Router, private formBuilder: FormBuilder) {
+  constructor(private  driverService:DriverService,private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.newDriver();
     this.registerForm = this.formBuilder.group({
       firstName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
       lastName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]),
@@ -27,27 +30,46 @@ export class CreateDriverComponent implements OnInit {
   get f() {
     return this.registerForm.controls;
   }
-
-  onSubmit() {
-    this.submitted = true;
-    this.save();
+  newDriver():void{
+    this.submitted=false;
   }
-
-  // gotoList() {
-  //   this.r.navigate(['/users']);
-  // }
-
-  onReset() {
-    this.registerForm.reset();
-    // this.gotoList();
-  }
-
-  save() {
+    save() {
     //stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
 
+      this.driverService.createDriver(this.registerForm.value)
+        .subscribe(data => {
+          console.log(data);
+          this.gotoList();
 
-  }
+        }, excp => {
+          console.log(excp);
+          if (excp.error instanceof Array) {
+            for (let err of excp.error) {
+              this.error += `${err.message}.\n`;
+            }
+          } else {
+            this.error = `${excp.error.message}`;
+          }
+        });
+    }
+
+    onSubmit() {
+      this.submitted = true;
+      this.save();
+    }
+
+    gotoList() {
+      this.router.navigate(['/drivers']);
+    }
+
+    onReset() {
+      this.registerForm.reset();
+      this.gotoList();
+    }
+
+
+
 }

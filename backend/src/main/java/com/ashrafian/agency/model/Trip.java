@@ -29,11 +29,11 @@ public class Trip {
     }
     @ManyToOne
     @JoinColumn(name = "passenger_id")
-    private Passenger passenger;
+    private com.ashrafian.agency.model.entity.Passenger passenger;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")
-    private Driver driver;
+    private com.ashrafian.agency.model.entity.Driver driver;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -85,19 +85,19 @@ public class Trip {
         this.description = description;
     }
 
-    public Passenger getPassenger() {
+    public com.ashrafian.agency.model.entity.Passenger getPassenger() {
         return passenger;
     }
 
-    public void setPassenger(Passenger passenger) {
+    public void setPassenger(com.ashrafian.agency.model.entity.Passenger passenger) {
         this.passenger = passenger;
     }
 
-    public Driver getDriver() {
+    public com.ashrafian.agency.model.entity.Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(Driver driver) {
+    public void setDriver(com.ashrafian.agency.model.entity.Driver driver) {
         this.driver = driver;
     }
 }

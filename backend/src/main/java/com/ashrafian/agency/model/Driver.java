@@ -11,8 +11,8 @@ import java.util.Objects;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Entity
 @Table(name = "driver")
 public class Driver {

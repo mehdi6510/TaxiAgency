@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from '@angular/router';
+import {Passenger} from "../../../model/Passenger";
+import {PassengerService} from "../../../services/passenger/passenger.service";
 
 @Component({
   selector: 'app-update-passenger',
@@ -8,12 +10,13 @@ import {Router} from '@angular/router';
   styleUrls: ['./update-passenger.component.css']
 })
 export class UpdatePassengerComponent implements OnInit {
-  id: number;
+  id: number | undefined;
   submitted = false;
   updateForm: FormGroup;
-  Passenger: passenger;
+  passenger: Passenger;
+  error: string = '';
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private  passengerService :PassengerService,private router: Router, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -75,7 +78,7 @@ export class UpdatePassengerComponent implements OnInit {
       });
   }
 
-  changePassengerInfo(Passenger: passenger) {
+  changePassengerInfo(passenger: Passenger) {
     this.updateForm.controls['id'].setValue(passenger.id);
     this.updateForm.controls['firstName'].setValue(passenger.firstName);
     this.updateForm.controls['lastName'].setValue(passenger.lastName);

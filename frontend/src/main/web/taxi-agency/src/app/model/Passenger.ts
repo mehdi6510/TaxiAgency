@@ -1,8 +1,8 @@
-// export class Passenger {
-//   id: number;
-//   firstName: string;
-//   lastName: string;
-//   phone: string;
-//   address: string;
-//
-// }
+export class Passenger {
+  id: number | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  phone: string | undefined;
+  address: string | undefined;
+
+}
