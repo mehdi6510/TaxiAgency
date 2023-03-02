@@ -1,8 +1,7 @@
 export class Driver {
-  id: number;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  plate: string;
-
+  id: number | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  phone: string | undefined;
+  plate: string | undefined;
 }

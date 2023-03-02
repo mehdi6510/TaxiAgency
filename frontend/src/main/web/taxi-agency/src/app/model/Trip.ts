@@ -1,11 +1,10 @@
 export class Trip {
-  id: number;
-  price: number;
-  time: Date;
-  startPoint: string;
-  destination: string;
-  description: string;
-  passengerId:number;
-  driverId:number;
-
+  id: number | undefined;
+  price: number | undefined;
+  time: Date | undefined;
+  startPoint: string | undefined;
+  destination: string | undefined;
+  description: string | undefined;
+  passengerId: number | undefined;
+  driverId: number | undefined;
 }

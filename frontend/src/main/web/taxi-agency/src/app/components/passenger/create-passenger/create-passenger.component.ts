@@ -10,7 +10,7 @@ import {PassengerService} from "../../../services/passenger/passenger.service";
 })
 export class CreatePassengerComponent implements OnInit {
   submitted = false;
-  registerForm: FormGroup;
+  registerForm: FormGroup | undefined;
   error: string = '';
 
   constructor(private passengerService: PassengerService, private router: Router, private formBuilder: FormBuilder) {
@@ -27,6 +27,7 @@ export class CreatePassengerComponent implements OnInit {
   }
 
   get f() {
+    // @ts-ignore
     return this.registerForm.controls;
   }
 
@@ -36,10 +37,12 @@ export class CreatePassengerComponent implements OnInit {
 
   save() {
     //stop here if form is invalid
+    // @ts-ignore
     if (this.registerForm.invalid) {
       return;
     }
 
+    // @ts-ignore
     this.passengerService.createPassenger(this.registerForm.value)
       .subscribe(data => {
         console.log(data);
@@ -67,6 +70,7 @@ export class CreatePassengerComponent implements OnInit {
   }
 
   onReset() {
+    // @ts-ignore
     this.registerForm.reset();
     this.gotoList();
   }

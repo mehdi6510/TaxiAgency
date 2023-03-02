@@ -4,5 +4,4 @@ export class Passenger {
   lastName: string | undefined;
   phone: string | undefined;
   address: string | undefined;
-
 }
