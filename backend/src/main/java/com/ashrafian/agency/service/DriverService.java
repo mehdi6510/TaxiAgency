@@ -1,18 +1,22 @@
 package com.ashrafian.agency.service;
 
-import com.ashrafian.agency.exception.ResourceNotFoundException;
+import com.ashrafian.agency.model.exception.ResourceNotFoundException;
+import com.ashrafian.agency.model.entity.Driver;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public interface DriverService {
 
-    Driver getUserById(Long driverId) throws ResourceNotFoundException;
+    Driver getDriverById(Long driverId) throws ResourceNotFoundException;
 
     List<Driver> getAllDrivers();
 
-    Driver createDriver(com.ashrafian.agency.model.entity.Driver driver);
+    Driver createDriver(Driver driver);
 
-    Driver updateUser(Long driverId, Driver driverDetails) throws ResourceNotFoundException;
+    Driver updateDriver(Long driverId, Driver driverDetails) throws ResourceNotFoundException;
 
     void deleteDriver(Long driverId) throws ResourceNotFoundException;
+
 }

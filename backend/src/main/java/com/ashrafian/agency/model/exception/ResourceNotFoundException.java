@@ -1,4 +1,4 @@
-package com.ashrafian.agency.exception;
+package com.ashrafian.agency.model.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

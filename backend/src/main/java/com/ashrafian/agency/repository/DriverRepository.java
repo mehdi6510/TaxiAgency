@@ -1,10 +1,10 @@
 package com.ashrafian.agency.repository;
 
-import com.ashrafian.agency.model.entity.Passenger;
+import com.ashrafian.agency.model.entity.Driver;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PassengerRepository extends JpaRepository<Passenger, Long> {
+public interface DriverRepository extends JpaRepository<Driver, Long> {
 
 }
