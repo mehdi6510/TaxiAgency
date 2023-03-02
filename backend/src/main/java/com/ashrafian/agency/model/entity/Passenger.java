@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "passenger")
-public class Passenger {
+public class Passenger implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
