@@ -7,7 +7,6 @@ import com.ashrafian.agency.service.PassengerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -28,16 +27,20 @@ public class PassengerServiceImpl implements PassengerService {
         log.debug("Loaded passenger detail: {}", passenger);
         return passenger;
     }
-
+    @Override
+    public Passenger getPassengerByFirstNameAndLastName(String firstName, String LastName) {
+       Passenger passenger = passengerRepository.getPassengerByNameAndLastName(firstName, LastName);
+        return passenger;
+    }
     @Override
     public List<Passenger> getAllPassengers() {
         log.info("Try to load all passengers.");
         List<Passenger> passengers = passengerRepository.findAll();
-
         log.info("Passengers has been loaded. Size of result : {}", passengers.size());
         log.debug("Loaded passengers detail: {}", passengers);
         return passengers;
     }
+
 
     @Override
     public Passenger createPassenger(Passenger passenger) {
