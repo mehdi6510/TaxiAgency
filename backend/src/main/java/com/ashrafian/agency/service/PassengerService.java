@@ -2,19 +2,33 @@ package com.ashrafian.agency.service;
 
 import com.ashrafian.agency.model.exception.ResourceNotFoundException;
 import com.ashrafian.agency.model.entity.Passenger;
+import com.ashrafian.agency.repository.PassengerRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 import java.util.List;
-
+@Service
+@RequiredArgsConstructor
 public interface PassengerService {
 
-    Passenger getPassengerById(Long passengerId) throws ResourceNotFoundException;
+  private  final   PassengerRepository passengerRepository;
 
-    List<Passenger> getAllPassengers();
 
-    Passenger createPassenger(Passenger passenger);
+    public Passenger getPassengerById(Long passengerId) throws ResourceNotFoundException;
 
-    Passenger updatePassenger(Long passengerId, Passenger passengerDetails) throws ResourceNotFoundException;
+    public List<Passenger> getAllPassengers();
 
-    void deletePassenger(Long passengerId) throws ResourceNotFoundException;
-    
+    public default Passenger getPassengerByFirstNameAndLastName(String firstName, String LastName) {
+        Passenger passenger = (Passenger) passengerRepository.getPassengerByNameAndLastName(firstName, LastName);
+        return passenger;
+    }
+
+    public Passenger createPassenger(Passenger passenger);
+
+    public Passenger updatePassenger(Long passengerId, Passenger passengerDetails) throws ResourceNotFoundException;
+
+    public void deletePassenger(Long passengerId) throws ResourceNotFoundException;
+
 }
