@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface DriverService {
 
     Driver getDriverById(Long driverId) throws ResourceNotFoundException;

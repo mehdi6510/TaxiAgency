@@ -27,7 +27,6 @@ public class PassengerController {
     }
 
     @GetMapping(value = "/passengersByFirstAndLastName/{firstName}/{lastName}")
-//    @GetMapping(value = "/passengersByFirstAndLastName")
     public ResponseEntity<Passenger> getPassengerByFirstNameAndLastName(@PathVariable (value = "firstName") String firstName,@PathVariable (value = "lastName") String lastName) throws ResourceNotFoundException {
         return ResponseEntity.ok().body( passengerService.getPassengerByFirstNameAndLastName(firstName,lastName));
     }

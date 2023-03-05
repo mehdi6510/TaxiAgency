@@ -1,21 +1,26 @@
 package com.ashrafian.agency.service.impl;
 
-import com.ashrafian.agency.model.exception.ResourceNotFoundException;
 import com.ashrafian.agency.model.entity.Passenger;
+import com.ashrafian.agency.model.exception.ResourceNotFoundException;
 import com.ashrafian.agency.repository.PassengerRepository;
 import com.ashrafian.agency.service.PassengerService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 import java.util.Date;
 import java.util.List;
 
-@Slf4j
 @Service
-@RequiredArgsConstructor
 public class PassengerServiceImpl implements PassengerService {
-    
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     private final PassengerRepository passengerRepository;
+
+    public PassengerServiceImpl(PassengerRepository passengerRepository) {
+        this.passengerRepository = passengerRepository;
+    }
 
     @Override
     public Passenger getPassengerById(Long passengerId) throws ResourceNotFoundException {
@@ -27,11 +32,13 @@ public class PassengerServiceImpl implements PassengerService {
         log.debug("Loaded passenger detail: {}", passenger);
         return passenger;
     }
+
     @Override
     public Passenger getPassengerByFirstNameAndLastName(String firstName, String LastName) {
-       Passenger passenger = passengerRepository.getPassengerByNameAndLastName(firstName, LastName);
+        Passenger passenger = passengerRepository.getPassengerByNameAndLastName(firstName, LastName);
         return passenger;
     }
+
     @Override
     public List<Passenger> getAllPassengers() {
         log.info("Try to load all passengers.");
