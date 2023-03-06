@@ -34,9 +34,8 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public Passenger getPassengerByFirstNameAndLastName(String firstName, String LastName) {
-        Passenger passenger = passengerRepository.getPassengerByNameAndLastName(firstName, LastName);
-        return passenger;
+    public List<Passenger> search(String firstName, String lastName, String phone) {
+        return passengerRepository.search(firstName, lastName, phone);
     }
 
     @Override
@@ -58,14 +57,17 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
-    public Passenger updatePassenger(Long passengerId, Passenger passengerDetails) throws ResourceNotFoundException {
-        log.info("Try to update passenger with this passenger id: {} and new detail: {}", passengerId, passengerDetails);
+    public Passenger updatePassenger(Long passengerId, Passenger passenger) throws ResourceNotFoundException {
+        log.info("Try to update passenger with this passenger id: {} and new detail: {}", passengerId, passenger);
         Passenger oldPassenger = passengerRepository.findById(passengerId).orElseThrow(() ->
                 new ResourceNotFoundException("Passenger not found for this id :: " + passengerId));
         log.info("Existing passenger data id db has been loaded with this details : {}", oldPassenger);
 
+        oldPassenger.setFirstName(passenger.getFirstName());
+        oldPassenger.setLastName(passenger.getLastName());
+        oldPassenger.setAddress(passenger.getAddress());
+        oldPassenger.setPhone(passenger.getPhone());
 
-        //mapper.fillUpdatingDetails(oldPassenger, passengerDetails); 
         Passenger updatedPassenger = passengerRepository.save(oldPassenger);
 
         log.info("Passenger updated with this details : {}", updatedPassenger);

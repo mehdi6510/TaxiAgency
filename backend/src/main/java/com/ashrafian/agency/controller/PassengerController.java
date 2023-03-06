@@ -1,7 +1,7 @@
 package com.ashrafian.agency.controller;
 
-import com.ashrafian.agency.model.exception.ResourceNotFoundException;
 import com.ashrafian.agency.model.entity.Passenger;
+import com.ashrafian.agency.model.exception.ResourceNotFoundException;
 import com.ashrafian.agency.service.PassengerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +21,17 @@ public class PassengerController {
         this.passengerService = passengerService;
     }
 
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<Passenger>> search(
+            @RequestParam(value = "firstName", required = false) String firstName,
+            @RequestParam(value = "lastName", required = false) String lastName,
+            @RequestParam(value = "phone", required = false) String phone) {
+        return ResponseEntity.ok().body(passengerService.search(firstName, lastName, phone));
+    }
+
     @GetMapping(value = "/passengers/{id}")
     public ResponseEntity<Passenger> getPassengerById(@PathVariable(value = "id") Long passengerId) throws ResourceNotFoundException {
         return ResponseEntity.ok().body(passengerService.getPassengerById(passengerId));
-    }
-
-    @GetMapping(value = "/passengersByFirstAndLastName/{firstName}/{lastName}")
-    public ResponseEntity<Passenger> getPassengerByFirstNameAndLastName(@PathVariable (value = "firstName") String firstName,@PathVariable (value = "lastName") String lastName) throws ResourceNotFoundException {
-        return ResponseEntity.ok().body( passengerService.getPassengerByFirstNameAndLastName(firstName,lastName));
     }
 
     @GetMapping(value = "/passengers")

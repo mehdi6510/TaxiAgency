@@ -1,7 +1,7 @@
 package com.ashrafian.agency.controller;
 
-import com.ashrafian.agency.model.exception.ResourceNotFoundException;
 import com.ashrafian.agency.model.entity.Trip;
+import com.ashrafian.agency.model.exception.ResourceNotFoundException;
 import com.ashrafian.agency.service.TripService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +19,11 @@ public class TripController {
 
     public TripController(TripService tripService) {
         this.tripService = tripService;
+    }
+
+    @PostMapping(value = "/search")
+    public ResponseEntity<List<Trip>> search(@RequestBody Trip trip) {
+        return ResponseEntity.ok().body(tripService.search(trip));
     }
 
     @GetMapping(value = "/trips/{id}")

@@ -35,6 +35,7 @@ public class Passenger implements Serializable {
         this.lastName = lastName;
         this.address = address;
         this.phone = phone;
+//        this.tripList = tripList;
         this.createdDate = createdDate;
         this.lastUpdated = lastUpdated;
     }

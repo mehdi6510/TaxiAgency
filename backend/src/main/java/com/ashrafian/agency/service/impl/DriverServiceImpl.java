@@ -58,8 +58,11 @@ public class DriverServiceImpl implements DriverService {
                 new ResourceNotFoundException("Driver not found for this id :: " + driverId));
         log.info("Existing driver data id db has been loaded with this details : {}", oldDriver);
 
+        oldDriver.setFirstName(driverDetails.getFirstName());
+        oldDriver.setLastName(driverDetails.getLastName());
+        oldDriver.setPlate(driverDetails.getPlate());
+        oldDriver.setPhone(driverDetails.getPhone());
 
-        //mapper.fillUpdatingDetails(oldDriver, driverDetails); 
         Driver updatedDriver = driverRepository.save(oldDriver);
 
         log.info("Driver updated with this details : {}", updatedDriver);

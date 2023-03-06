@@ -7,16 +7,16 @@ import java.util.List;
 
 public interface PassengerService {
 
-    public Passenger getPassengerById(Long passengerId) throws ResourceNotFoundException;
+    Passenger getPassengerById(Long passengerId) throws ResourceNotFoundException;
 
-    public Passenger getPassengerByFirstNameAndLastName(String firstName, String LastName);
+    List<Passenger> search(String firstName, String lastName, String phone);
 
-    public List<Passenger> getAllPassengers();
+    List<Passenger> getAllPassengers();
 
-    public Passenger createPassenger(Passenger passenger);
+    Passenger createPassenger(Passenger passenger);
 
-    public Passenger updatePassenger(Long passengerId, Passenger passengerDetails) throws ResourceNotFoundException;
+    Passenger updatePassenger(Long passengerId, Passenger passenger) throws ResourceNotFoundException;
 
-    public void deletePassenger(Long passengerId) throws ResourceNotFoundException;
+    void deletePassenger(Long passengerId) throws ResourceNotFoundException;
 
 }

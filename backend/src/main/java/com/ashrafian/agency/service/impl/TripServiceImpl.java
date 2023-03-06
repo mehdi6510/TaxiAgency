@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TripServiceImpl implements TripService {
@@ -21,6 +22,21 @@ public class TripServiceImpl implements TripService {
 
     public TripServiceImpl(TripRepository tripRepository) {
         this.tripRepository = tripRepository;
+    }
+
+    @Override
+    public List<Trip> search(Trip trip) {
+        return tripRepository.search(
+                trip.getPrice(),
+                trip.getStartPoint(),
+                trip.getDestination(),
+                trip.getDescription(),
+                trip.getPassenger().getFirstName(),
+                trip.getPassenger().getLastName(),
+                trip.getDriver().getFirstName(),
+                trip.getDriver().getLastName(),
+                trip.getDriver().getPlate()
+        );
     }
 
     @Override
@@ -46,6 +62,10 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip createTrip(Trip trip) {
+        if (Objects.isNull(trip.getTime())) {
+            trip.setTime(new Date());
+        }
+
         log.info("Try to save trip : {}", trip);
         tripRepository.save(trip);
         log.info("Trip saved : {}", trip);
@@ -59,10 +79,16 @@ public class TripServiceImpl implements TripService {
                 new ResourceNotFoundException("Trip not found for this id :: " + tripId));
         log.info("Existing trip data id db has been loaded with this details : {}", oldTrip);
 
+        oldTrip.setPrice(tripDetails.getPrice());
+        oldTrip.setDescription(tripDetails.getDescription());
+        oldTrip.setStartPoint(tripDetails.getStartPoint());
+        oldTrip.setDestination(tripDetails.getDescription());
+        if (Objects.nonNull(tripDetails.getTime()))
+            oldTrip.setTime(tripDetails.getTime());
+        oldTrip.setDriver(tripDetails.getDriver());
+        oldTrip.setPassenger(tripDetails.getPassenger());
 
-        //mapper.fillUpdatingDetails(oldTrip, tripDetails);
         Trip updatedTrip = tripRepository.save(oldTrip);
-
         log.info("Trip updated with this details : {}", updatedTrip);
         return updatedTrip;
     }
