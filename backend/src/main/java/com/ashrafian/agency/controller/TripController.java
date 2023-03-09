@@ -22,8 +22,26 @@ public class TripController {
     }
 
     @PostMapping(value = "/search")
-    public ResponseEntity<List<Trip>> search(@RequestBody Trip trip) {
-        return ResponseEntity.ok().body(tripService.search(trip));
+    public ResponseEntity<List<Trip>> search(@RequestParam(value = "price", required = false) Long price,
+                                             @RequestParam(value = "startPoint", required = false) String startPoint,
+                                             @RequestParam(value = "destination", required = false) String destination,
+                                             @RequestParam(value = "description", required = false) String description,
+                                             @RequestParam(value = "passengerFirstName", required = false) String passengerFirstName,
+                                             @RequestParam(value = "passengerLastName", required = false) String passengerLastName,
+                                             @RequestParam(value = "driverFirstName", required = false) String driverFirstName,
+                                             @RequestParam(value = "driverLastName", required = false) String driverLastName,
+                                             @RequestParam(value = "driverPlate", required = false) String driverPlate) {
+        return ResponseEntity.ok(tripService.search(
+                price,
+                startPoint,
+                destination,
+                description,
+                passengerFirstName,
+                passengerLastName,
+                driverFirstName,
+                driverLastName,
+                driverPlate)
+        );
     }
 
     @GetMapping(value = "/trips/{id}")

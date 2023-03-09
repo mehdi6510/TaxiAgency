@@ -25,17 +25,25 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Trip> search(Trip trip) {
+    public List<Trip> search(Long price,
+                             String startPoint,
+                             String destination,
+                             String description,
+                             String passengerFirstName,
+                             String passengerLastName,
+                             String driverFirstName,
+                             String driverLastName,
+                             String driverPlate) {
         return tripRepository.search(
-                trip.getPrice(),
-                trip.getStartPoint(),
-                trip.getDestination(),
-                trip.getDescription(),
-                trip.getPassenger().getFirstName(),
-                trip.getPassenger().getLastName(),
-                trip.getDriver().getFirstName(),
-                trip.getDriver().getLastName(),
-                trip.getDriver().getPlate()
+                price,
+                startPoint,
+                destination,
+                description,
+                passengerFirstName,
+                passengerLastName,
+                driverFirstName,
+                driverLastName,
+                driverPlate
         );
     }
 

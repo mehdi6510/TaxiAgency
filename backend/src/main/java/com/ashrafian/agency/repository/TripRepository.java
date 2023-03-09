@@ -12,15 +12,16 @@ import java.util.List;
 public interface TripRepository extends JpaRepository<Trip, Long> {
 
     @Query(value = "from Trip t where " +
-            "           t.price = :price " +
-            "       or t.startPoint like %:startPoint% " +
-            "       or t.destination like %:destination% " +
-            "       or t.description like %:description% " +
-            "       or t.passenger.firstName like %:passengerFirstName% " +
-            "       or t.passenger.lastName like %:passengerLastName% " +
-            "       or t.driver.firstName like %:driverFirstName% " +
-            "       or t.driver.lastName like %:driverLastName% " +
-            "       or t.driver.plate like %:driverPlate% ")
+            "          (:price is null or t.price = :price) " +
+            "       and (:startPoint is null or t.startPoint like %:startPoint%) " +
+            "       and (:destination is null or t.destination like %:destination%) " +
+            "       and (:description is null or t.description like %:description%) " +
+            "       and (:passengerFirstName is null or t.passenger.firstName like %:passengerFirstName%) " +
+            "       and (:passengerLastName is null or t.passenger.lastName like %:passengerLastName%) " +
+            "       and (:driverFirstName is null or t.driver.firstName like %:driverFirstName%) " +
+            "       and (:driverLastName is null or t.driver.lastName like %:driverLastName%) " +
+            "       and (:driverPlate is null or t.driver.plate like %:driverPlate%) "
+    )
     List<Trip> search(
             @Param("price") Long price,
             @Param("startPoint") String startPoint,
